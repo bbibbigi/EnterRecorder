@@ -1,0 +1,562 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>출입증 교부 대장</title>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+<script src="jquery.techbytarun.excelexportjs.min.js"></script>
+<script>
+/**
+ * 
+ */
+$(document).ready(function() {
+	// google realtime database에서 데이터를 읽고 화면에 표시해준다
+	firebase.database().ref('card1').limitToLast(1).on('child_added', function(data) {
+		$('#company1').append(data.val().company);
+		$('#rental_time1').append(data.val().rentalTime);
+		$('#return_time1').append(data.val().returnTime);
+		$('#staff1').append(data.val().staff);
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card1').removeClass('submit');
+			$('#card1').addClass('return');
+			$('#card1').val('회수');
+			$('#card1').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});	
+	firebase.database().ref('card2').limitToLast(1).on('child_added', function(data) {
+		$('#company2').append(data.val().company);
+		$('#rental_time2').append(data.val().rentalTime);
+		$('#return_time2').append(data.val().returnTime);
+		$('#staff2').append(data.val().staff);
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card2').removeClass('submit');
+			$('#card2').addClass('return');
+			$('#card2').val('회수');
+			$('#card2').append('<input type="hidden" value="' + data.key + '">');
+		};		
+	});
+	firebase.database().ref('card3').limitToLast(1).on('child_added', function(data) {
+		$('#company3').append(data.val().company);
+		$('#rental_time3').append(data.val().rentalTime);
+		$('#return_time3').append(data.val().returnTime);
+		$('#staff3').append(data.val().staff);
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card3').removeClass('submit');
+			$('#card3').addClass('return');
+			$('#card3').val('회수');
+			$('#card3').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	firebase.database().ref('card4').limitToLast(1).on('child_added', function(data) {
+		$('#company4').append(data.val().company);
+		$('#rental_time4').append(data.val().rentalTime);
+		$('#return_time4').append(data.val().returnTime);
+		$('#staff4').append(data.val().staff);		
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card4').removeClass('submit');
+			$('#card4').addClass('return');
+			$('#card4').val('회수');
+			$('#card4').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	firebase.database().ref('card5').limitToLast(1).on('child_added', function(data) {
+		$('#company5').append(data.val().company);
+		$('#rental_time5').append(data.val().rentalTime);
+		$('#return_time5').append(data.val().returnTime);
+		$('#staff5').append(data.val().staff);		
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card5').removeClass('submit');
+			$('#card5').addClass('return');
+			$('#card5').val('회수');
+			$('#card5').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	firebase.database().ref('card6').limitToLast(1).on('child_added', function(data) {
+		$('#company6').append(data.val().company);
+		$('#rental_time6').append(data.val().rentalTime);
+		$('#return_time6').append(data.val().returnTime);
+		$('#staff6').append(data.val().staff);		
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card6').removeClass('submit');
+			$('#card6').addClass('return');
+			$('#card6').val('회수');
+			$('#card6').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	firebase.database().ref('card7').limitToLast(1).on('child_added', function(data) {
+		$('#company7').append(data.val().company);
+		$('#rental_time7').append(data.val().rentalTime);
+		$('#return_time7').append(data.val().returnTime);
+		$('#staff7').append(data.val().staff);		
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card7').removeClass('submit');
+			$('#card7').addClass('return');
+			$('#card7').val('회수');
+			$('#card7').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	firebase.database().ref('card8').limitToLast(1).on('child_added', function(data) {
+		$('#company8').append(data.val().company);
+		$('#rental_time8').append(data.val().rentalTime);
+		$('#return_time8').append(data.val().returnTime);
+		$('#staff8').append(data.val().staff);		
+		if((data.val().returnTime) == '회수미완료') {
+			$('#card8').removeClass('submit');
+			$('#card8').addClass('return');
+			$('#card8').val('회수');
+			$('#card8').append('<input type="hidden" value="' + data.key + '">');
+		};
+	});
+	
+	$('.submit').click(function(e) {
+		if($(this).val() == '회수') {
+			var cardNum = $(this).attr('id');
+			var key = $(this).children().val();
+			var now = new Date();
+			var nowTime = now.getFullYear();
+			nowTime += '-' + (now.getMonth() + 1) ;
+			nowTime += '-' + now.getDate();
+			nowTime += ' ' + now.getHours();
+			nowTime += ':' + now.getMinutes();
+			nowTime += ':' + now.getSeconds();
+			modifyData(cardNum, key, nowTime);
+			window.location.reload();
+		} else {
+			var cardNum = $(this).attr('id');
+			$('.application').attr('id', cardNum);
+
+			// 클릭한 위치 근처에 레이어가 나타난다 
+			var sWidth = window.innerWidth;
+			var sHeight = window.ineerHeight;
+			
+			var oWidth = $('.moreMenu').width();
+			var oHeight = $('.moreMenu').height();
+			
+			// 레이어가 나타날 위치를 셋팅한다.
+			var divLeft = e.clientX + 10;
+			var divTop = e.clientY + 5;
+			
+			// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+			if(divLeft + oWidth > sWidth)
+				divLeft -= oWidth;
+			if(divTop + oHeight > sHeight)
+				divTop -= oHeight;
+				
+			// 레이어가 상단기준점(0,0)을 벗어나면 상단기준점(0,0)에 배치한다.
+			if(divLeft < 0)
+				divLeft = 0;
+			if(divTop < 0)
+				divTop = 0;
+				
+			$('.moreMenu').css({
+				"top" : divTop,
+				"left" : divLeft,
+				"position" : "absolute"
+			}).show();
+		};
+	});
+	
+	// 교부 버튼 클릭시 동작
+	$('.application').click(function() {
+		if($('#company').val() == '') {
+			alert("출입증을 교부받는 회사명과 담당자를 입력하세요.");
+			return;
+		}
+		if($('#staff').val() == '') {
+			alert("출입증을 교부하는 담당자를 입력하세요.");
+			return;
+		}
+		
+		var company = $('#company').val();
+		var staff = $('#staff').val();
+		var cardNum = $(this).attr('id');
+		var Now = new Date();
+		var NowTime = Now.getFullYear();
+		NowTime += '-' + (Now.getMonth() + 1) ;
+		NowTime += '-' + Now.getDate();
+		NowTime += ' ' + Now.getHours();
+		NowTime += ':' + Now.getMinutes();
+		NowTime += ':' + Now.getSeconds();
+		
+		writeData(cardNum, company, NowTime, '회수미완료', staff);
+		window.location.reload();
+	});
+	
+	// 닫기 버튼 클릭시 레이어가 사라진다
+	$('#close').click(function() {
+		$('.moreMenu').hide();
+		$('#company').val('');
+		$('#staff').val('');
+	});
+	
+	// 리셋 버튼 클릭시 데이터 삭제
+	$('#reset').click(function() {
+		var result = confirm('모든 데이터를 삭제하시겠습니까?');
+		
+		if(result) {
+			firebase.database().ref().remove();
+			window.location.reload();
+		};
+	});
+	
+	// 엑셀 파일 생성
+	$('#excelDown').click(function(e) {
+		// 엑셀 파일 생성을 위한 테이블 생성
+		$('body').append(
+			'<table id="excelExport" style="display:none">' +
+				'<tr>' + 
+					'<td>출입증 번호</td>' +
+					'<td>회사명</td>' +
+					'<td>교부시간</td>' + 
+					'<td>회수시간</td>' + 
+					'<td>담당자</td>' + 
+				'</tr>' + 
+			'</table>'
+		);
+		for(var i=1; i<9; i++) {
+			firebase.database().ref('card' + i).orderByValue().on("child_added", function(data) {
+				var cardNum = data.val().cardNum;
+				var company = data.val().company;
+				var rentalTime = data.val().rentalTime;
+				var returnTime = data.val().returnTime;
+				var staff = data.val().staff;
+				
+				$('#excelExport').append (
+					'<tr>' + 
+						'<td>' + cardNum + '</td>' +
+						'<td>' + company + '</td>' +
+						'<td>' + rentalTime + '</td>' +
+						'<td>' + returnTime + '</td>' + 
+						'<td>' + staff + '</td>' + 
+					'</tr>'	
+				);
+			});
+		};
+		
+		var check = confirm('교부 기록을 엑셀 파일로 저장합니다.')
+		if(check) {
+			setTimeout(function() {	
+				$("#excelexport").excelexportjs({
+					containerid: "excelExport"
+					, datatype: 'table'});
+					window.location.reload(); 
+			}, 1000);
+		};
+	});
+});
+ 
+// google firebase 접속 정보
+var config = {
+  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "xxxxxxxxxxxxxxxxxxxxxxxxx",
+  databaseURL: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  projectId: "xxxxxxxxxxxxxxxxxx",
+  storageBucket: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+  messagingSenderId: "11111111111111111"
+};
+firebase.initializeApp(config);
+
+// google realtime database에 교부 데이터 추가
+function writeData(cardNum, company, rentalTime, returnTime, staff) {
+	for(var i=1; i<9; i++) {
+		if(cardNum == 'card' + i) {
+			firebase.database().ref('card' + i).push({
+				cardNum: cardNum,
+				company: company,
+				rentalTime: rentalTime,
+				returnTime: returnTime,
+				staff: staff
+			});
+		};
+	};
+};
+
+// google realtime database에 회수 날짜 추가
+function modifyData(cardNum, key, returnTime) {
+	for(var i=1; i<9; i++) {
+		if(cardNum == 'card' + i) {
+			firebase.database().ref('card' + i + '/' + key).update({
+				returnTime: returnTime
+			});
+		};
+	};
+};
+</script>
+
+<style>
+.list {
+	width: 1012px;
+	height: 260px;
+}
+.card {
+	width: 230px;
+	height: 90%;
+	margin: 10px;
+	float: left;
+	border: 1px solid black;
+}
+.subject {
+	height: 20%;
+	font-size: 30px;
+	text-align: center;
+}
+.content {
+	height: 60%;
+	font-size: 15px;
+	margin-left: 5px;
+}
+.bottom {
+	height: 20%;
+	text-align: center;
+}
+.submit {
+	font-size: 25px;
+}
+.return {
+	font-size: 25px;
+	color: white;
+	background: red;
+}
+.left {
+	float: left;
+}
+.right {
+	float: left;
+}
+.sub_list {
+	width: 100%;
+	height: 24%;
+}	
+.moreMenu {
+	position: absolute;
+	display: none;
+	background-color: #ffffff;
+	border: solid 2px #d0d0d0;
+	width: 250px;
+	height: 100px;
+	padding: 10px;
+}
+.application {
+	margin: 5px;
+}
+#close {
+	margin: 5px;
+}
+#reset {
+	float: right;
+	margin: 10px;
+}
+#excelDown {
+	float: right;
+	margin: 10px;
+}
+.footer {
+	float: left;
+	height: 45px;
+}
+#excelExport {
+	float: left;
+	width: 100%;
+}
+body {
+	overflow: auto;
+}
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<h2>출입증 교부 대장(GIGA IoT 사업협력센터 - DKI 판교)</h2>
+		<div class="list" id="firstlist">
+			<div class="card" id="firstcard">
+				<div class="subject">1번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company1"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time1"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time1"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff1"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card1" value="교부"/></div>
+			</div>
+			<div class="card" id="secondcard">
+				<div class="subject">2번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company2"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time2"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time2"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff2"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card2" value="교부"/></div>
+			</div>
+			<div class="card" id="thirdcard">
+				<div class="subject">3번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company3"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time3"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time3"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff3"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card3" value="교부"/></div>
+			</div>
+			<div class="card" id="forthcard">
+				<div class="subject">4번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company4"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time4"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time4"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff4"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card4" value="교부"/></div>
+			</div>
+		</div>
+		<div class="list" id="secondlist">
+			<div class="card" id="fifthcard">
+				<div class="subject">5번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company5"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time5"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time5"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff5"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card5" value="교부"/></div>
+			</div>
+			<div class="card" id="sixthcard">
+				<div class="subject">6번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company6"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time6"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time6"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff6"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card6" value="교부"/></div>
+			</div>
+			<div class="card" id="seventhcard">
+				<div class="subject">7번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company7"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time7"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time7"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff7"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card7" value="교부"/></div>
+			</div>
+			<div class="card" id="eighthcard">
+				<div class="subject">8번 출입증</div>
+				<div class="content">
+					<div class="sub_list">
+						<div class="left">회사명 : &nbsp</div>
+						<div class="right" id="company8"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">교부시간 : &nbsp</div>
+						<div class="right" id="rental_time8"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">회수시간 : &nbsp</div>
+						<div class="right returnT" id="return_time8"></div>
+					</div> 
+					<div class="sub_list">
+						<div class="left">담당자 : &nbsp</div> 
+						<div class="right" id="staff8"></div>
+					</div>
+				</div>
+				<div class="bottom"><input type="button" class="submit" id="card8" value="교부"/></div>
+			</div>
+		</div>	
+		<div class="footer">
+			<input type="button" id="reset" value="데이터 삭제">
+			<input type="button" id="excelDown" value="교부기록 저장">
+		</div>
+		<div class="moreMenu">
+			회사명 : <input type="text" id="company" value="" > <br>
+			담당자 : <input type="text" id="staff" value="" ><br><br>
+			<center><input type="button" class="application" value="교부"><input type="button" id="close" value="닫기"></center>
+		</div>
+	</div>
+</body>
+</html>
