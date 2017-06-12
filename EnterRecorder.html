@@ -13,18 +13,52 @@
 $(document).ready(function() {
 	// google realtime database에서 데이터를 읽고 화면에 표시해준다
 	firebase.database().ref('card1').limitToLast(1).on('child_added', function(data) {
+		$('#company1').empty();
+		$('#rental_time1').empty();
+		$('#return_time1').empty();
+		$('#staff1').empty();
 		$('#company1').append(data.val().company);
 		$('#rental_time1').append(data.val().rentalTime);
 		$('#return_time1').append(data.val().returnTime);
 		$('#staff1').append(data.val().staff);
 		if((data.val().returnTime) == '회수미완료') {
+			$('#card1').empty();
 			$('#card1').removeClass('submit');
 			$('#card1').addClass('return');
 			$('#card1').val('회수');
 			$('#card1').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});	
+	firebase.database().ref('card1').limitToLast(1).on('child_changed', function(data) {
+		$('#company1').empty();
+		$('#rental_time1').empty();
+		$('#return_time1').empty();
+		$('#staff1').empty();
+		$('#company1').append(data.val().company);
+		$('#rental_time1').append(data.val().rentalTime);
+		$('#return_time1').append(data.val().returnTime);
+		$('#staff1').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card1').empty();
+			$('#card1').removeClass('return');
+			$('#card1').addClass('submit');
+			$('#card1').val('교부');
+		};
+	});
+	firebase.database().ref('card1').limitToLast(1).on('child_removed', function(data) {
+		$('#company1').empty();
+		$('#rental_time1').empty();
+		$('#return_time1').empty();
+		$('#staff1').empty();
+		$('#card1').removeClass('return');
+		$('#card1').addClass('submit');
+		$('#card1').val('교부');
+	});
 	firebase.database().ref('card2').limitToLast(1).on('child_added', function(data) {
+		$('#company2').empty();
+		$('#rental_time2').empty();
+		$('#return_time2').empty();
+		$('#staff2').empty();
 		$('#company2').append(data.val().company);
 		$('#rental_time2').append(data.val().rentalTime);
 		$('#return_time2').append(data.val().returnTime);
@@ -36,7 +70,36 @@ $(document).ready(function() {
 			$('#card2').append('<input type="hidden" value="' + data.key + '">');
 		};		
 	});
+	firebase.database().ref('card2').limitToLast(1).on('child_changed', function(data) {
+		$('#company2').empty();
+		$('#rental_time2').empty();
+		$('#return_time2').empty();
+		$('#staff2').empty();
+		$('#company2').append(data.val().company);
+		$('#rental_time2').append(data.val().rentalTime);
+		$('#return_time2').append(data.val().returnTime);
+		$('#staff2').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card2').empty();
+			$('#card2').removeClass('return');
+			$('#card2').addClass('submit');
+			$('#card2').val('교부');
+		};
+	});
+	firebase.database().ref('card2').limitToLast(1).on('child_removed', function(data) {
+		$('#company2').empty();
+		$('#rental_time2').empty();
+		$('#return_time2').empty();
+		$('#staff2').empty();
+		$('#card2').removeClass('return');
+		$('#card2').addClass('submit');
+		$('#card2').val('교부');
+	});
 	firebase.database().ref('card3').limitToLast(1).on('child_added', function(data) {
+		$('#company3').empty();
+		$('#rental_time3').empty();
+		$('#return_time3').empty();
+		$('#staff3').empty();
 		$('#company3').append(data.val().company);
 		$('#rental_time3').append(data.val().rentalTime);
 		$('#return_time3').append(data.val().returnTime);
@@ -48,7 +111,36 @@ $(document).ready(function() {
 			$('#card3').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});
+	firebase.database().ref('card3').limitToLast(1).on('child_changed', function(data) {
+		$('#company3').empty();
+		$('#rental_time3').empty();
+		$('#return_time3').empty();
+		$('#staff3').empty();
+		$('#company3').append(data.val().company);
+		$('#rental_time3').append(data.val().rentalTime);
+		$('#return_time3').append(data.val().returnTime);
+		$('#staff3').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card3').empty();
+			$('#card3').removeClass('return');
+			$('#card3').addClass('submit');
+			$('#card3').val('교부');
+		};
+	});
+	firebase.database().ref('card3').limitToLast(1).on('child_removed', function(data) {
+		$('#company3').empty();
+		$('#rental_time3').empty();
+		$('#return_time3').empty();
+		$('#staff3').empty();
+		$('#card3').removeClass('return');
+		$('#card3').addClass('submit');
+		$('#card3').val('교부');
+	});
 	firebase.database().ref('card4').limitToLast(1).on('child_added', function(data) {
+		$('#company4').empty();
+		$('#rental_time4').empty();
+		$('#return_time4').empty();
+		$('#staff4').empty();
 		$('#company4').append(data.val().company);
 		$('#rental_time4').append(data.val().rentalTime);
 		$('#return_time4').append(data.val().returnTime);
@@ -60,7 +152,36 @@ $(document).ready(function() {
 			$('#card4').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});
+	firebase.database().ref('card4').limitToLast(1).on('child_changed', function(data) {
+		$('#company4').empty();
+		$('#rental_time4').empty();
+		$('#return_time4').empty();
+		$('#staff4').empty();
+		$('#company4').append(data.val().company);
+		$('#rental_time4').append(data.val().rentalTime);
+		$('#return_time4').append(data.val().returnTime);
+		$('#staff4').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card4').empty();
+			$('#card4').removeClass('return');
+			$('#card4').addClass('submit');
+			$('#card4').val('교부');
+		};
+	});
+	firebase.database().ref('card4').limitToLast(1).on('child_removed', function(data) {
+		$('#company4').empty();
+		$('#rental_time4').empty();
+		$('#return_time4').empty();
+		$('#staff4').empty();
+		$('#card4').removeClass('return');
+		$('#card4').addClass('submit');
+		$('#card4').val('교부');
+	});
 	firebase.database().ref('card5').limitToLast(1).on('child_added', function(data) {
+		$('#company5').empty();
+		$('#rental_time5').empty();
+		$('#return_time5').empty();
+		$('#staff5').empty();
 		$('#company5').append(data.val().company);
 		$('#rental_time5').append(data.val().rentalTime);
 		$('#return_time5').append(data.val().returnTime);
@@ -72,7 +193,36 @@ $(document).ready(function() {
 			$('#card5').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});
+	firebase.database().ref('card5').limitToLast(1).on('child_changed', function(data) {
+		$('#company5').empty();
+		$('#rental_time5').empty();
+		$('#return_time5').empty();
+		$('#staff5').empty();
+		$('#company5').append(data.val().company);
+		$('#rental_time5').append(data.val().rentalTime);
+		$('#return_time5').append(data.val().returnTime);
+		$('#staff5').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card5').empty();
+			$('#card5').removeClass('return');
+			$('#card5').addClass('submit');
+			$('#card5').val('교부');
+		};
+	});
+	firebase.database().ref('card5').limitToLast(1).on('child_removed', function(data) {
+		$('#company5').empty();
+		$('#rental_time5').empty();
+		$('#return_time5').empty();
+		$('#staff5').empty();
+		$('#card5').removeClass('return');
+		$('#card5').addClass('submit');
+		$('#card5').val('교부');
+	});
 	firebase.database().ref('card6').limitToLast(1).on('child_added', function(data) {
+		$('#company6').empty();
+		$('#rental_time6').empty();
+		$('#return_time6').empty();
+		$('#staff6').empty();
 		$('#company6').append(data.val().company);
 		$('#rental_time6').append(data.val().rentalTime);
 		$('#return_time6').append(data.val().returnTime);
@@ -84,7 +234,36 @@ $(document).ready(function() {
 			$('#card6').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});
+	firebase.database().ref('card6').limitToLast(1).on('child_changed', function(data) {
+		$('#company6').empty();
+		$('#rental_time6').empty();
+		$('#return_time6').empty();
+		$('#staff6').empty();
+		$('#company6').append(data.val().company);
+		$('#rental_time6').append(data.val().rentalTime);
+		$('#return_time6').append(data.val().returnTime);
+		$('#staff6').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card6').empty();
+			$('#card6').removeClass('return');
+			$('#card6').addClass('submit');
+			$('#card6').val('교부');
+		};
+	});
+	firebase.database().ref('card6').limitToLast(1).on('child_removed', function(data) {
+		$('#company6').empty();
+		$('#rental_time6').empty();
+		$('#return_time6').empty();
+		$('#staff6').empty();
+		$('#card6').removeClass('return');
+		$('#card6').addClass('submit');
+		$('#card6').val('교부');
+	});
 	firebase.database().ref('card7').limitToLast(1).on('child_added', function(data) {
+		$('#company7').empty();
+		$('#rental_time7').empty();
+		$('#return_time7').empty();
+		$('#staff7').empty();
 		$('#company7').append(data.val().company);
 		$('#rental_time7').append(data.val().rentalTime);
 		$('#return_time7').append(data.val().returnTime);
@@ -96,7 +275,36 @@ $(document).ready(function() {
 			$('#card7').append('<input type="hidden" value="' + data.key + '">');
 		};
 	});
+	firebase.database().ref('card7').limitToLast(1).on('child_changed', function(data) {
+		$('#company7').empty();
+		$('#rental_time7').empty();
+		$('#return_time7').empty();
+		$('#staff7').empty();
+		$('#company7').append(data.val().company);
+		$('#rental_time7').append(data.val().rentalTime);
+		$('#return_time7').append(data.val().returnTime);
+		$('#staff7').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card7').empty();
+			$('#card7').removeClass('return');
+			$('#card7').addClass('submit');
+			$('#card7').val('교부');
+		};
+	});
+	firebase.database().ref('card7').limitToLast(1).on('child_removed', function(data) {
+		$('#company7').empty();
+		$('#rental_time7').empty();
+		$('#return_time7').empty();
+		$('#staff7').empty();
+		$('#card7').removeClass('return');
+		$('#card7').addClass('submit');
+		$('#card7').val('교부');
+	});
 	firebase.database().ref('card8').limitToLast(1).on('child_added', function(data) {
+		$('#company8').empty();
+		$('#rental_time8').empty();
+		$('#return_time8').empty();
+		$('#staff8').empty();
 		$('#company8').append(data.val().company);
 		$('#rental_time8').append(data.val().rentalTime);
 		$('#return_time8').append(data.val().returnTime);
@@ -107,6 +315,31 @@ $(document).ready(function() {
 			$('#card8').val('회수');
 			$('#card8').append('<input type="hidden" value="' + data.key + '">');
 		};
+	});
+	firebase.database().ref('card8').limitToLast(1).on('child_changed', function(data) {
+		$('#company8').empty();
+		$('#rental_time8').empty();
+		$('#return_time8').empty();
+		$('#staff8').empty();
+		$('#company8').append(data.val().company);
+		$('#rental_time8').append(data.val().rentalTime);
+		$('#return_time8').append(data.val().returnTime);
+		$('#staff8').append(data.val().staff);
+		if((data.val().returnTime) != '회수미완료') {
+			$('#card8').empty();
+			$('#card8').removeClass('return');
+			$('#card8').addClass('submit');
+			$('#card8').val('교부');
+		};
+	});
+	firebase.database().ref('card8').limitToLast(1).on('child_removed', function(data) {
+		$('#company8').empty();
+		$('#rental_time8').empty();
+		$('#return_time8').empty();
+		$('#staff8').empty();
+		$('#card8').removeClass('return');
+		$('#card8').addClass('submit');
+		$('#card8').val('교부');
 	});
 	
 	$('.submit').click(function(e) {
@@ -121,11 +354,12 @@ $(document).ready(function() {
 			nowTime += ':' + now.getMinutes();
 			nowTime += ':' + now.getSeconds();
 			modifyData(cardNum, key, nowTime);
-			window.location.reload();
 		} else {
 			var cardNum = $(this).attr('id');
 			$('.application').attr('id', cardNum);
-
+			$('#company').val('');
+			$('#staff').val('');
+			
 			// 클릭한 위치 근처에 레이어가 나타난다 
 			var sWidth = window.innerWidth;
 			var sHeight = window.ineerHeight;
@@ -134,8 +368,8 @@ $(document).ready(function() {
 			var oHeight = $('.moreMenu').height();
 			
 			// 레이어가 나타날 위치를 셋팅한다.
-			var divLeft = e.clientX + 10;
-			var divTop = e.clientY + 5;
+			divLeft = e.pageX + 10;
+			divTop = e.pageY + 5;
 			
 			// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
 			if(divLeft + oWidth > sWidth)
@@ -180,7 +414,10 @@ $(document).ready(function() {
 		NowTime += ':' + Now.getSeconds();
 		
 		writeData(cardNum, company, NowTime, '회수미완료', staff);
-		window.location.reload();
+		
+		$('.moreMenu').hide();
+		$('#company').val('');
+		$('#staff').val('');
 	});
 	
 	// 닫기 버튼 클릭시 레이어가 사라진다
@@ -196,7 +433,6 @@ $(document).ready(function() {
 		
 		if(result) {
 			firebase.database().ref().remove();
-			window.location.reload();
 		};
 	});
 	
@@ -212,7 +448,7 @@ $(document).ready(function() {
 					'<td>회수시간</td>' + 
 					'<td>담당자</td>' + 
 				'</tr>' + 
-			'</table>'
+			'</table>' 
 		);
 		for(var i=1; i<9; i++) {
 			firebase.database().ref('card' + i).orderByValue().on("child_added", function(data) {
@@ -242,18 +478,20 @@ $(document).ready(function() {
 					, datatype: 'table'});
 					window.location.reload(); 
 			}, 1000);
+		} else {
+			$('#excelExport').remove();
 		};
 	});
 });
  
 // google firebase 접속 정보
 var config = {
-  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  authDomain: "xxxxxxxxxxxxxxxxxxxxxxxxx",
-  databaseURL: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  projectId: "xxxxxxxxxxxxxxxxxx",
-  storageBucket: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
-  messagingSenderId: "11111111111111111"
+  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+  databaseURL: "https://zzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+  projectId: "xxxxxxxxxxxxxx",
+  storageBucket: "yyyyyyyyyyyyyyyyyyyyyyyyyy",
+  messagingSenderId: "123456789012"
 };
 firebase.initializeApp(config);
 
@@ -285,13 +523,17 @@ function modifyData(cardNum, key, returnTime) {
 </script>
 
 <style>
+
 .list {
+<--
 	width: 1012px;
 	height: 260px;
+-->
 }
+
 .card {
 	width: 230px;
-	height: 90%;
+	height: 236px;
 	margin: 10px;
 	float: left;
 	border: 1px solid black;
